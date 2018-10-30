@@ -1,0 +1,16 @@
+.\obj\clock_hal.o: ..\src\hal\clock_hal.c
+.\obj\clock_hal.o: ..\src\hardware\systick.h
+.\obj\clock_hal.o: d:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\2.0.0\Device\Include\stm32f10x.h
+.\obj\clock_hal.o: d:\Keil_v5\ARM\PACK\ARM\CMSIS\4.3.0\CMSIS\Include\core_cm3.h
+.\obj\clock_hal.o: d:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+.\obj\clock_hal.o: d:\Keil_v5\ARM\PACK\ARM\CMSIS\4.3.0\CMSIS\Include\core_cmInstr.h
+.\obj\clock_hal.o: d:\Keil_v5\ARM\PACK\ARM\CMSIS\4.3.0\CMSIS\Include\core_cmFunc.h
+.\obj\clock_hal.o: d:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\2.0.0\Device\Include\system_stm32f10x.h
+.\obj\clock_hal.o: ..\inc\stm32f10x_conf.h
+.\obj\clock_hal.o: ..\Libraries\STM32F10x_StdPeriph_Driver\inc\stm32f10x_gpio.h
+.\obj\clock_hal.o: d:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\2.0.0\Device\Include\stm32f10x.h
+.\obj\clock_hal.o: ..\Libraries\STM32F10x_StdPeriph_Driver\inc\stm32f10x_i2c.h
+.\obj\clock_hal.o: ..\Libraries\STM32F10x_StdPeriph_Driver\inc\stm32f10x_rcc.h
+.\obj\clock_hal.o: ..\Libraries\STM32F10x_StdPeriph_Driver\inc\stm32f10x_spi.h
+.\obj\clock_hal.o: ..\Libraries\STM32F10x_StdPeriph_Driver\inc\stm32f10x_usart.h
+.\obj\clock_hal.o: ..\Libraries\STM32F10x_StdPeriph_Driver\inc\misc.h

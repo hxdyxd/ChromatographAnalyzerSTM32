@@ -1,0 +1,10 @@
+.\obj\lopcodes.o: ..\Libraries\lua-5.3.2\src\lopcodes.c
+.\obj\lopcodes.o: ..\Libraries\lua-5.3.2\src\lprefix.h
+.\obj\lopcodes.o: d:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
+.\obj\lopcodes.o: ..\Libraries\lua-5.3.2\src\lopcodes.h
+.\obj\lopcodes.o: ..\Libraries\lua-5.3.2\src\llimits.h
+.\obj\lopcodes.o: d:\Keil_v5\ARM\ARMCC\Bin\..\include\limits.h
+.\obj\lopcodes.o: ..\Libraries\lua-5.3.2\src\lua.h
+.\obj\lopcodes.o: d:\Keil_v5\ARM\ARMCC\Bin\..\include\stdarg.h
+.\obj\lopcodes.o: ..\Libraries\lua-5.3.2\src\luaconf.h
+.\obj\lopcodes.o: d:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h

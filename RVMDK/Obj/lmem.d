@@ -1,0 +1,17 @@
+.\obj\lmem.o: ..\Libraries\lua-5.3.2\src\lmem.c
+.\obj\lmem.o: ..\Libraries\lua-5.3.2\src\lprefix.h
+.\obj\lmem.o: d:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
+.\obj\lmem.o: ..\Libraries\lua-5.3.2\src\lua.h
+.\obj\lmem.o: d:\Keil_v5\ARM\ARMCC\Bin\..\include\stdarg.h
+.\obj\lmem.o: ..\Libraries\lua-5.3.2\src\luaconf.h
+.\obj\lmem.o: d:\Keil_v5\ARM\ARMCC\Bin\..\include\limits.h
+.\obj\lmem.o: d:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+.\obj\lmem.o: ..\Libraries\lua-5.3.2\src\ldebug.h
+.\obj\lmem.o: ..\Libraries\lua-5.3.2\src\lstate.h
+.\obj\lmem.o: ..\Libraries\lua-5.3.2\src\lobject.h
+.\obj\lmem.o: ..\Libraries\lua-5.3.2\src\llimits.h
+.\obj\lmem.o: ..\Libraries\lua-5.3.2\src\ltm.h
+.\obj\lmem.o: ..\Libraries\lua-5.3.2\src\lzio.h
+.\obj\lmem.o: ..\Libraries\lua-5.3.2\src\lmem.h
+.\obj\lmem.o: ..\Libraries\lua-5.3.2\src\ldo.h
+.\obj\lmem.o: ..\Libraries\lua-5.3.2\src\lgc.h

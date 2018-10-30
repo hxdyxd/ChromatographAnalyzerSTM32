@@ -1,0 +1,11 @@
+.\obj\main.o: ..\src\app\main.c
+.\obj\main.o: d:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
+.\obj\main.o: d:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
+.\obj\main.o: ..\src\hal\data_interface_hal.h
+.\obj\main.o: d:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+.\obj\main.o: ..\src\app\app_debug.h
+.\obj\main.o: ..\src\app\api\interface_api.h
+.\obj\main.o: ..\src\app\gain.h
+.\obj\main.o: ..\src\app\channel.h
+.\obj\main.o: ..\src\hardware\ad7190_generic\AD7190.h
+.\obj\main.o: ..\src\hardware\ad7190_generic\Communication.h

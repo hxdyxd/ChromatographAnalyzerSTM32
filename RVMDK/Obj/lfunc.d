@@ -1,0 +1,16 @@
+.\obj\lfunc.o: ..\Libraries\lua-5.3.2\src\lfunc.c
+.\obj\lfunc.o: ..\Libraries\lua-5.3.2\src\lprefix.h
+.\obj\lfunc.o: d:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
+.\obj\lfunc.o: ..\Libraries\lua-5.3.2\src\lua.h
+.\obj\lfunc.o: d:\Keil_v5\ARM\ARMCC\Bin\..\include\stdarg.h
+.\obj\lfunc.o: ..\Libraries\lua-5.3.2\src\luaconf.h
+.\obj\lfunc.o: d:\Keil_v5\ARM\ARMCC\Bin\..\include\limits.h
+.\obj\lfunc.o: d:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+.\obj\lfunc.o: ..\Libraries\lua-5.3.2\src\lfunc.h
+.\obj\lfunc.o: ..\Libraries\lua-5.3.2\src\lobject.h
+.\obj\lfunc.o: ..\Libraries\lua-5.3.2\src\llimits.h
+.\obj\lfunc.o: ..\Libraries\lua-5.3.2\src\lgc.h
+.\obj\lfunc.o: ..\Libraries\lua-5.3.2\src\lstate.h
+.\obj\lfunc.o: ..\Libraries\lua-5.3.2\src\ltm.h
+.\obj\lfunc.o: ..\Libraries\lua-5.3.2\src\lzio.h
+.\obj\lfunc.o: ..\Libraries\lua-5.3.2\src\lmem.h

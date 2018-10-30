@@ -1,0 +1,16 @@
+.\obj\ad8400_spi2.o: ..\src\hardware\ad8400_spi2.c
+.\obj\ad8400_spi2.o: ..\src\hardware\ad8400_spi2.h
+.\obj\ad8400_spi2.o: d:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\2.0.0\Device\Include\stm32f10x.h
+.\obj\ad8400_spi2.o: d:\Keil_v5\ARM\PACK\ARM\CMSIS\4.3.0\CMSIS\Include\core_cm3.h
+.\obj\ad8400_spi2.o: d:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+.\obj\ad8400_spi2.o: d:\Keil_v5\ARM\PACK\ARM\CMSIS\4.3.0\CMSIS\Include\core_cmInstr.h
+.\obj\ad8400_spi2.o: d:\Keil_v5\ARM\PACK\ARM\CMSIS\4.3.0\CMSIS\Include\core_cmFunc.h
+.\obj\ad8400_spi2.o: d:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\2.0.0\Device\Include\system_stm32f10x.h
+.\obj\ad8400_spi2.o: ..\inc\stm32f10x_conf.h
+.\obj\ad8400_spi2.o: ..\Libraries\STM32F10x_StdPeriph_Driver\inc\stm32f10x_gpio.h
+.\obj\ad8400_spi2.o: d:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\2.0.0\Device\Include\stm32f10x.h
+.\obj\ad8400_spi2.o: ..\Libraries\STM32F10x_StdPeriph_Driver\inc\stm32f10x_i2c.h
+.\obj\ad8400_spi2.o: ..\Libraries\STM32F10x_StdPeriph_Driver\inc\stm32f10x_rcc.h
+.\obj\ad8400_spi2.o: ..\Libraries\STM32F10x_StdPeriph_Driver\inc\stm32f10x_spi.h
+.\obj\ad8400_spi2.o: ..\Libraries\STM32F10x_StdPeriph_Driver\inc\stm32f10x_usart.h
+.\obj\ad8400_spi2.o: ..\Libraries\STM32F10x_StdPeriph_Driver\inc\misc.h

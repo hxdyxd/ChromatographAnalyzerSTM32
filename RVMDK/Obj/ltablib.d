@@ -1,0 +1,13 @@
+.\obj\ltablib.o: ..\Libraries\lua-5.3.2\src\ltablib.c
+.\obj\ltablib.o: ..\Libraries\lua-5.3.2\src\lprefix.h
+.\obj\ltablib.o: d:\Keil_v5\ARM\ARMCC\Bin\..\include\limits.h
+.\obj\ltablib.o: d:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
+.\obj\ltablib.o: d:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
+.\obj\ltablib.o: ..\Libraries\lua-5.3.2\src\lua.h
+.\obj\ltablib.o: d:\Keil_v5\ARM\ARMCC\Bin\..\include\stdarg.h
+.\obj\ltablib.o: ..\Libraries\lua-5.3.2\src\luaconf.h
+.\obj\ltablib.o: d:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+.\obj\ltablib.o: ..\Libraries\lua-5.3.2\src\lauxlib.h
+.\obj\ltablib.o: d:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
+.\obj\ltablib.o: ..\Libraries\lua-5.3.2\src\lualib.h
+.\obj\ltablib.o: d:\Keil_v5\ARM\ARMCC\Bin\..\include\time.h

@@ -1,0 +1,14 @@
+.\obj\leds.o: ..\src\hardware\leds.c
+.\obj\leds.o: ..\src\hardware\leds.h
+.\obj\leds.o: ..\Libraries\CMSIS\stm32f10x.h
+.\obj\leds.o: ..\Libraries\CMSIS\core_cm3.h
+.\obj\leds.o: d:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+.\obj\leds.o: ..\Libraries\CMSIS\system_stm32f10x.h
+.\obj\leds.o: ..\inc\stm32f10x_conf.h
+.\obj\leds.o: ..\Libraries\STM32F10x_StdPeriph_Driver\inc\stm32f10x_gpio.h
+.\obj\leds.o: ..\Libraries\CMSIS\stm32f10x.h
+.\obj\leds.o: ..\Libraries\STM32F10x_StdPeriph_Driver\inc\stm32f10x_i2c.h
+.\obj\leds.o: ..\Libraries\STM32F10x_StdPeriph_Driver\inc\stm32f10x_rcc.h
+.\obj\leds.o: ..\Libraries\STM32F10x_StdPeriph_Driver\inc\stm32f10x_spi.h
+.\obj\leds.o: ..\Libraries\STM32F10x_StdPeriph_Driver\inc\stm32f10x_usart.h
+.\obj\leds.o: ..\Libraries\STM32F10x_StdPeriph_Driver\inc\misc.h

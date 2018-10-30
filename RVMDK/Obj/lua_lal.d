@@ -1,0 +1,14 @@
+.\obj\lua_lal.o: ..\src\app\lua_lal.c
+.\obj\lua_lal.o: d:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
+.\obj\lua_lal.o: d:\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
+.\obj\lua_lal.o: d:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
+.\obj\lua_lal.o: d:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+.\obj\lua_lal.o: ..\src\hal\data_interface_hal.h
+.\obj\lua_lal.o: ..\src\app\lua_lal.h
+.\obj\lua_lal.o: ..\Libraries\lua-5.3.2\src\lua.h
+.\obj\lua_lal.o: d:\Keil_v5\ARM\ARMCC\Bin\..\include\stdarg.h
+.\obj\lua_lal.o: d:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
+.\obj\lua_lal.o: ..\Libraries\lua-5.3.2\src\luaconf.h
+.\obj\lua_lal.o: d:\Keil_v5\ARM\ARMCC\Bin\..\include\limits.h
+.\obj\lua_lal.o: ..\Libraries\lua-5.3.2\src\lauxlib.h
+.\obj\lua_lal.o: ..\Libraries\lua-5.3.2\src\lualib.h

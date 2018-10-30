@@ -1,0 +1,13 @@
+.\obj\loadlib.o: ..\Libraries\lua-5.3.2\src\loadlib.c
+.\obj\loadlib.o: ..\Libraries\lua-5.3.2\src\lprefix.h
+.\obj\loadlib.o: d:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
+.\obj\loadlib.o: d:\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
+.\obj\loadlib.o: d:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
+.\obj\loadlib.o: ..\Libraries\lua-5.3.2\src\lua.h
+.\obj\loadlib.o: d:\Keil_v5\ARM\ARMCC\Bin\..\include\stdarg.h
+.\obj\loadlib.o: d:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
+.\obj\loadlib.o: ..\Libraries\lua-5.3.2\src\luaconf.h
+.\obj\loadlib.o: d:\Keil_v5\ARM\ARMCC\Bin\..\include\limits.h
+.\obj\loadlib.o: d:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+.\obj\loadlib.o: ..\Libraries\lua-5.3.2\src\lauxlib.h
+.\obj\loadlib.o: ..\Libraries\lua-5.3.2\src\lualib.h
