@@ -358,6 +358,39 @@ void AD7190_ContinuousConvRead(unsigned char sampleNumber, unsigned char *p)
 }
 
 /***************************************************************************//**
+ * @brief 连续转换模式数据读取，包含时间戳
+ *
+ * @return samplesAverage - The average of the conversion results.
+*******************************************************************************/
+void AD7190_ContinuousConvReadAddTimestamp(unsigned char sampleNumber, unsigned char *p, unsigned char start_flag)
+{
+	unsigned char count = 0x0;
+	unsigned long samples = 0x0;
+	uint64_t timestamp;
+	static uint64_t start_timer = 0;
+	int i = 0;
+	if(start_flag) {
+		start_timer = hal_read_TickCounter();
+	}
+	ADI_PART_CS_LOW;
+	for(count = 0;count < sampleNumber;count ++)
+    {
+        AD7190_WaitRdyGoLow();
+		uint64_t timestamp = hal_read_TickCounter() - start_timer;
+		p[i++] = (timestamp >> 18) & 0x7f;
+		p[i++] = (timestamp >> 12) & 0x7f;
+		p[i++] = (timestamp >> 6) & 0x7f;
+		p[i++] = timestamp & 0x7f;
+        samples = AD7190_GetRegisterValue(AD7190_REG_DATA, 3, 0); // CS is not modified.
+		p[i++] = (samples >> 18) & 0x7f;
+		p[i++] = (samples >> 12) & 0x7f;
+		p[i++] = (samples >> 6) & 0x7f;
+		p[i++] = samples & 0x7f;
+    }
+	ADI_PART_CS_HIGH;
+}
+
+/***************************************************************************//**
  * @brief Read data from temperature sensor and converts it to Celsius degrees.
  *
  * @return temperature - Celsius degrees.

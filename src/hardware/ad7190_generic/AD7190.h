@@ -205,6 +205,9 @@ void AD7190_ContinuousConvStart(uint32_t sampleRate, uint8_t sinc3Filter, uint8_
 /*! 连续转换模式数据读取 */
 void AD7190_ContinuousConvRead(unsigned char sampleNumber, unsigned char *p);
 
+/*! @brief 连续转换模式数据读取，包含时间戳 */
+void AD7190_ContinuousConvReadAddTimestamp(unsigned char sampleNumber, unsigned char *p, unsigned char start_flag);
+
 /*! Read data from temperature sensor and converts it to Celsius degrees. */
 unsigned long AD7190_TemperatureRead(void);
 

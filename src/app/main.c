@@ -24,12 +24,17 @@
 #include "gain.h"
 #include "channel.h"
 
-
+#undef NO_TIMESTAMP
 
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
-#define SINGLE_SAMPLE_NUM         (12)
-#define SINGLE_SAMPLE_SIZE_NUM    (SINGLE_SAMPLE_NUM*4)
+#ifdef NO_TIMESTAMP
+	#define SINGLE_SAMPLE_NUM         (12)
+	#define SINGLE_SAMPLE_SIZE_NUM    (SINGLE_SAMPLE_NUM*4)
+#else
+	#define SINGLE_SAMPLE_NUM         (6)
+	#define SINGLE_SAMPLE_SIZE_NUM    (SINGLE_SAMPLE_NUM*8)
+#endif
 
 #define SAMPLE_DECODE(bit24_31, bit16_23, bit8_15, bit0_7)   (((bit24_31) << 18) | ((bit16_23) << 12) | ((bit8_15) << 6) | (bit0_7))
 
@@ -179,11 +184,20 @@ void usb_callback(uint8_t *p, uint8_t len)
 *******************************************************************************/
 void adc_conv_proc(void)
 {
+	static uint8_t gs_last_start_adc = 0;
 	if(gs_start_adc) {
+#ifdef NO_TIMESTAMP
 		AD7190_ContinuousConvRead( SINGLE_SAMPLE_NUM, CONV_PLUS4(buf) );
 		uint8_t pack_len = if_api_data_set_pack( buf, SINGLE_SAMPLE_SIZE_NUM, IF_API_CMD_TYPE_ADC_START, IF_API_SPARE_OK);
 		data_interface_hal_write(HAL_USB1)( buf, pack_len);
+#else
+		AD7190_ContinuousConvReadAddTimestamp( SINGLE_SAMPLE_NUM, CONV_PLUS4(buf), (gs_last_start_adc != gs_start_adc) );
+		uint8_t pack_len = if_api_data_set_pack( buf, SINGLE_SAMPLE_SIZE_NUM, IF_API_CMD_TYPE_ADC_START, IF_API_SPARE_OK);
+		data_interface_hal_write(HAL_USB1)( buf, pack_len);
+#endif
 	}
+	//¼ÇÂ¼
+	gs_last_start_adc = gs_start_adc;
 }
 
 
