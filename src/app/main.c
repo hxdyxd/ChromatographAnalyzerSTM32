@@ -23,6 +23,10 @@
 #include "interface_api.h"
 #include "gain.h"
 #include "channel.h"
+#include "soft_timer.h"
+
+#define SOFT_TIMER_POWER_ON_DELAY   0
+
 
 #undef NO_TIMESTAMP
 
@@ -46,14 +50,14 @@
 static unsigned char buf[512];
 static unsigned char cmd_buf[512];
 
-static uint8_t gs_start_adc = 0;
+static uint32_t gs_start_adc = 0;
 static if_api_v10_23_t gs_api_config = {
 	.ch =       IF_API_CH1,
 	.filter =   IF_API_Filter_SINC4,
 	.chop =     IF_API_CHOP_Disable,
 	.nodelay =  IF_API_NoDelay_Disable,
 	.rej60 =    IF_API_REJ60_0,
-	.gain =     IF_API_Gain_1000,
+	.gain =     IF_API_Gain_10000000,
 	.fs =       1,
 };
 
@@ -64,8 +68,6 @@ static if_api_v10_23_t gs_api_config = {
 
 void api_set_config(void)
 {
-	/* 设置增益 */
-	gain_set(gs_api_config.gain);
 	/* 设置通道 */
 	channel_t ch_conf;
 	ch_conf.ch = gs_api_config.ch;
@@ -75,6 +77,28 @@ void api_set_config(void)
 	ch_conf.rej60 = (gs_api_config.rej60 == IF_API_REJ60_1);
 	ch_conf.fs = gs_api_config.fs;
 	channel_set(&ch_conf);
+}
+
+
+void power_on_reply_proc(void)
+{
+	/* 设置增益 */
+	gain_set(gs_api_config.gain);
+}
+
+void connection_turn_of_proc(void)
+{
+	data = 0;
+	switch( gs_api_config.ch ) {
+	case IF_API_CH1:
+		data_interface_hal_write(HAL_GPIO1)(&data, 1);
+		break;
+	case IF_API_CH2:
+		data_interface_hal_write(HAL_GPIO2)(&data, 1);
+		break;
+	default:
+		 return;
+	}
 }
 
 
@@ -112,6 +136,8 @@ void usb_callback(uint8_t *p, uint8_t len)
 		} else {
 			ret = if_api_data_set_pack( cmd_buf, 0, IF_API_CMD_TYPE_SET, IF_API_SPARE_OK);
 		}
+
+		//sprintf( (char *)cmd_buf, "gain: %d\n",  gs_api_config.gain );
 		data_interface_hal_write(HAL_USB1)(cmd_buf, ret);
 		/* 设置参数 */
 		api_set_config();
@@ -120,7 +146,7 @@ void usb_callback(uint8_t *p, uint8_t len)
 	//開始传输
 	case IF_API_CMD_TYPE_ADC_START:
 		/* ADC turn on */
-		gs_start_adc = 1;
+		gs_start_adc++;
 		break;
 	//结束传输
 	case IF_API_CMD_TYPE_ADC_END:
@@ -149,7 +175,11 @@ void usb_callback(uint8_t *p, uint8_t len)
 			break;
 		default:
 			 return;
-		}		
+		}
+		
+		//delay ，wait power on
+		soft_timer_create(SOFT_TIMER_POWER_ON_DELAY, 1, 0, power_on_reply_proc, 1000);
+		
 		break;
 	//关闭电源
 	case IF_API_CMD_TYPE_POWER_END:
@@ -200,7 +230,6 @@ void adc_conv_proc(void)
 	gs_last_start_adc = gs_start_adc;
 }
 
-
 /*******************************************************************************
 * Function Name  : main.
 * Description    : Main routine.
@@ -210,23 +239,28 @@ void adc_conv_proc(void)
 *******************************************************************************/
 int main(void)
 {
+	soft_timer_init();
 	/* 初始化硬件 */
 	data_interface_hal_init();
 	APP_DEBUG("Build , %s %s \r\n", __DATE__, __TIME__);
-	
-	/* 初始化通道 */
-	channel_init();
-	/* 设置参数 */
-	api_set_config();
 
+	/* 初始化电源 */
 	uint8_t data;
 	data = 0;
 	data_interface_hal_write(HAL_GPIO1)(&data, 1);
 	data = 0;
 	data_interface_hal_write(HAL_GPIO2)(&data, 1);
 	
+	/* 初始化通道 */
+	channel_init();
+	/* 设置参数 */
+	api_set_config();
+	
 	while (1) {
-		
+		if(get_connection_state() == 0) {
+			connection_turn_of_proc();
+		}
+		soft_timer_proc();
 		adc_conv_proc();    //adc proc            
 		data_interface_hal_read_proc(usb_callback);  //data interface proc
 	}

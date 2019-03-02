@@ -52,7 +52,7 @@ const struct sSpi STM32_SPI[STM32_SPI_NUM] =
 		},
 		.RCC_APB2Periph = RCC_APB1Periph_SPI2,
 		.SPIx = SPI2,
-		.SPI_BaudRatePrescaler = SPI_BaudRatePrescaler_16,
+		.SPI_BaudRatePrescaler = SPI_BaudRatePrescaler_128,
 		.SPI_DataSize = SPI_DataSize_16b,
 		.SPI_CPOL = SPI_CPOL_Low,
 		.SPI_CPHA = SPI_CPHA_1Edge,
@@ -104,9 +104,9 @@ void stm32_spi_init(void)
 		SPI_Cmd(STM32_SPI[i].SPIx , ENABLE);
 		
 		GPIO_InitTypeDef GPIO_InitStruct;
-		GPIO_InitStruct.GPIO_Pin =  STM32_SPI[i].GPIO.GPIO_Pin ;
+		GPIO_InitStruct.GPIO_Pin =  STM32_SPI[i].GPIO.GPIO_Pin;
 		GPIO_InitStruct.GPIO_Speed = GPIO_Speed_50MHz;
-		GPIO_InitStruct.GPIO_Mode = GPIO_Mode_AF_PP; 
+		GPIO_InitStruct.GPIO_Mode = GPIO_Mode_AF_PP;
 		GPIO_Init(STM32_SPI[i].GPIO.GPIOx , &GPIO_InitStruct);
 	}
 	/* SPI2∆¨—°≈‰÷√ */
@@ -116,9 +116,15 @@ void stm32_spi_init(void)
 		GPIO_InitTypeDef GPIO_InitStruct;
 		GPIO_InitStruct.GPIO_Pin =  SPI2_CS[i].GPIO_Pin ;
 		GPIO_InitStruct.GPIO_Speed = GPIO_Speed_50MHz;
-		GPIO_InitStruct.GPIO_Mode = GPIO_Mode_AF_PP; 
+		GPIO_InitStruct.GPIO_Mode = GPIO_Mode_Out_PP; 
 		GPIO_Init(SPI2_CS[i].GPIOx , &GPIO_InitStruct);
 	}
+}
+
+void delay_us(int i)
+{
+	i *= 72;
+	while(--i);
 }
 
 uint16_t stm32_spi_wr(STM32_SPI_ID id, uint16_t val)

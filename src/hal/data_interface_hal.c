@@ -145,6 +145,12 @@ void data_interface_hal_read_proc(void (*callback_func)(uint8_t *, uint8_t))
 	}
 }
 
+int get_connection_state(void)
+{
+	return (bDeviceState == CONFIGURED);
+}
+
+
 void (*data_interface_hal_write(HAL_WRITE_ID id))(uint8_t *p, uint8_t len)
 {
 	switch(id) {

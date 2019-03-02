@@ -692,6 +692,11 @@
               <FileType>1</FileType>
               <FilePath>..\src\app\channel.c</FilePath>
             </File>
+            <File>
+              <FileName>soft_timer.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\src\app\soft_timer.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

@@ -48,6 +48,8 @@ inline void (*data_interface_hal_write(HAL_WRITE_ID id))(uint8_t *p, uint8_t len
 *******************************************************************************/
 void data_interface_hal_read_proc(void (*callback_func)(uint8_t *, uint8_t));
 
+int get_connection_state(void);
+
 inline uint64_t hal_read_TickCounter(void);
 inline uint8_t hal_read_gpio_spi1_miso(void);
 
