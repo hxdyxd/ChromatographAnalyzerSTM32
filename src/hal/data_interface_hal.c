@@ -141,13 +141,8 @@ void data_interface_hal_read_proc(void (*callback_func)(uint8_t *, uint8_t))
 	if(callback_func != NULL && count_out != 0) {
 		callback_func(buffer_out, count_out);
 		count_out = 0;
-		SetEPRxValid(ENDP3);
+		//SetEPRxValid(ENDP3);
 	}
-}
-
-int get_connection_state(void)
-{
-	return (bDeviceState == CONFIGURED);
 }
 
 

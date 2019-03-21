@@ -33,6 +33,19 @@ int soft_timer_create(char id, char on, char is_circle, void ( *timer_cb)(void),
 	return id;
 }
 
+int soft_timer_create_from_isr(char id, char on, char is_circle, void ( *timer_cb)(void), uint32_t timeout)
+{
+	if(id >= MAX_TIMER) {
+		return -1;
+	}
+	timer[id].is_circle = is_circle;
+	timer[id].on = on;
+	timer[id].timer_cb = timer_cb;
+	timer[id].timeout = timeout;
+	timer[id].count = SOFT_TIMER_GET_TICK_COUNT();
+	return id;
+}
+
 int soft_timer_delete(char id) 
 {
 	if(id >= MAX_TIMER) {

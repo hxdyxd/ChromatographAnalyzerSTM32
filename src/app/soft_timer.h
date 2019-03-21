@@ -21,6 +21,7 @@ typedef struct {
 void soft_timer_ms_tick(void);
 void soft_timer_init(void);
 int soft_timer_create(char id, char on, char is_circle, void (* timer_cb)(void), uint32_t timeout);
+int soft_timer_create_from_isr(char id, char on, char is_circle, void ( *timer_cb)(void), uint32_t timeout);
 int soft_timer_delete(char id);
 void soft_timer_proc(void);
 

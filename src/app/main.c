@@ -26,6 +26,10 @@
 #include "soft_timer.h"
 
 #define SOFT_TIMER_POWER_ON_DELAY   0
+#define SOFT_TIMER_ACTIVE_DETECT    1
+
+//两小时保护
+#define AUTO_TURN_OFF            (7200*1000)
 
 
 #undef NO_TIMESTAMP
@@ -88,7 +92,7 @@ void power_on_reply_proc(void)
 
 void connection_turn_of_proc(void)
 {
-	data = 0;
+	uint8_t data = 0;
 	switch( gs_api_config.ch ) {
 	case IF_API_CH1:
 		data_interface_hal_write(HAL_GPIO1)(&data, 1);
@@ -177,6 +181,8 @@ void usb_callback(uint8_t *p, uint8_t len)
 			 return;
 		}
 		
+		//更新活跃时间
+		soft_timer_create(SOFT_TIMER_ACTIVE_DETECT, 1, 0, connection_turn_of_proc, AUTO_TURN_OFF);
 		//delay ，wait power on
 		soft_timer_create(SOFT_TIMER_POWER_ON_DELAY, 1, 0, power_on_reply_proc, 1000);
 		
@@ -187,17 +193,9 @@ void usb_callback(uint8_t *p, uint8_t len)
 		ret = if_api_data_set_pack( cmd_buf, 0, IF_API_CMD_TYPE_POWER_END, IF_API_SPARE_OK);
 		data_interface_hal_write(HAL_USB1)(cmd_buf, ret);
 	
-		data = 0;
-		switch( gs_api_config.ch ) {
-		case IF_API_CH1:
-			data_interface_hal_write(HAL_GPIO1)(&data, 1);
-			break;
-		case IF_API_CH2:
-			data_interface_hal_write(HAL_GPIO2)(&data, 1);
-			break;
-		default:
-			 return;
-		}
+		//关闭电源
+		connection_turn_of_proc();
+		soft_timer_delete(SOFT_TIMER_ACTIVE_DETECT);
 		break;
 	
 	default:
@@ -216,6 +214,8 @@ void adc_conv_proc(void)
 {
 	static uint8_t gs_last_start_adc = 0;
 	if(gs_start_adc) {
+		//更新活跃时间
+		soft_timer_create(SOFT_TIMER_ACTIVE_DETECT, 1, 0, connection_turn_of_proc, AUTO_TURN_OFF);
 #ifdef NO_TIMESTAMP
 		AD7190_ContinuousConvRead( SINGLE_SAMPLE_NUM, CONV_PLUS4(buf) );
 		uint8_t pack_len = if_api_data_set_pack( buf, SINGLE_SAMPLE_SIZE_NUM, IF_API_CMD_TYPE_ADC_START, IF_API_SPARE_OK);
@@ -257,9 +257,6 @@ int main(void)
 	api_set_config();
 	
 	while (1) {
-		if(get_connection_state() == 0) {
-			connection_turn_of_proc();
-		}
 		soft_timer_proc();
 		adc_conv_proc();    //adc proc            
 		data_interface_hal_read_proc(usb_callback);  //data interface proc
