@@ -10,15 +10,21 @@
 
 #include <stdint.h>
 
+#define UART_DMA  0
+
+
+
 typedef enum
 {
-	HAL_SPI1 = 0,
-	HAL_SPI2_CS1 = 1,
-	HAL_SPI2_CS2 = 3,
-	HAL_GPIO1 = 4,
-	HAL_GPIO2 = 5,
-	HAL_USB1 = 6,
-	HAL_USB2 = 7,
+    HAL_SPI1 = 0,
+    HAL_SPI2_CS1 = 1,
+    HAL_SPI2_CS2 = 3,
+    HAL_GPIO1 = 4,
+    HAL_GPIO2 = 5,
+    HAL_LED1 = 6,
+    HAL_LED2 = 7,
+    HAL_USB1 = 8,
+    HAL_USB2 = 9,
 }HAL_WRITE_ID;
 
 /*******************************************************************************
@@ -29,6 +35,15 @@ typedef enum
 * Return         : None.
 *******************************************************************************/
 void data_interface_hal_init(void);
+
+/*******************************************************************************
+* Function Name  : data_interface_hal_set.
+* Description    :Hardware adaptation layer set.
+* Input          : ch.
+* Output         : None.
+* Return         : None.
+*******************************************************************************/
+void data_interface_hal_set(int ch);
 
 /*******************************************************************************
 * Function Name  : data_interface_hal_write.
@@ -46,9 +61,11 @@ inline void (*data_interface_hal_write(HAL_WRITE_ID id))(uint8_t *p, uint8_t len
 * Output         : None.
 * Return         : None.
 *******************************************************************************/
-void data_interface_hal_read_proc(void (*callback_func)(uint8_t *, uint8_t));
+void data_interface_hal_read_proc(void (*callback_func)(uint8_t *, int));
 
 inline uint64_t hal_read_TickCounter(void);
 inline uint8_t hal_read_gpio_spi1_miso(void);
+inline uint8_t hal_read_gpio_j5(void);
+inline uint8_t hal_read_gpio_j7(void);
 
 #endif

@@ -30,7 +30,7 @@
 *******************************************************************************/
 void channel_init(void)
 {
-	AD7190_Init();
+    AD7190_Init();
 }
 
 
@@ -43,29 +43,29 @@ void channel_init(void)
 *******************************************************************************/
 int channel_set(channel_t *conf)
 {
-	if(conf->ch >= CHANNEL_MAX_NUM) {
-		return -1;
-	}
-	switch(conf->ch) {
-		case 0:
-			//¼«ÐÔ¡¢Õ¶²¨¡¢ÔöÒæÅäÖÃ¼Ä´æÆ÷
-			AD7190_RangeSetup(0, conf->chop, AD7190_CONF_GAIN_1);
-			AD7190_ChannelSelect(AD7190_CH_AIN1P_AIN2M);
-			//ËÙÂÊ¡¢ÂË²¨Æ÷¡¢REJ60¡¢ÁãÑÓ³ÙÄ£Ê½¼Ä´æÆ÷
-			AD7190_ContinuousConvStart(conf->fs, conf->sinc3Filter, conf->rej60, conf->noDelay);
-			break;
-		case 1:
-			//¼«ÐÔ¡¢Õ¶²¨¡¢ÔöÒæÅäÖÃ¼Ä´æÆ÷
-			AD7190_RangeSetup(0, conf->chop, AD7190_CONF_GAIN_1);
-			AD7190_ChannelSelect(AD7190_CH_AIN3P_AIN4M);
-			//ËÙÂÊ¡¢ÂË²¨Æ÷¡¢REJ60¡¢ÁãÑÓ³ÙÄ£Ê½¼Ä´æÆ÷
-			AD7190_ContinuousConvStart(conf->fs, conf->sinc3Filter, conf->rej60, conf->noDelay);
-			break;
-		default:
-			;
-	}
-	
-	return 0;
+    if(conf->ch >= CHANNEL_MAX_NUM) {
+        return -1;
+    }
+    switch(conf->ch) {
+        case 0:
+            //¼«ÐÔ¡¢Õ¶²¨¡¢ÔöÒæÅäÖÃ¼Ä´æÆ÷
+            AD7190_RangeSetup(0, conf->chop, AD7190_CONF_GAIN_1);
+            AD7190_ChannelSelect(AD7190_CH_AIN1P_AIN2M);
+            //ËÙÂÊ¡¢ÂË²¨Æ÷¡¢REJ60¡¢ÁãÑÓ³ÙÄ£Ê½¼Ä´æÆ÷
+            AD7190_ContinuousConvStart(conf->fs, conf->sinc3Filter, conf->rej60, conf->noDelay);
+            break;
+        case 1:
+            //¼«ÐÔ¡¢Õ¶²¨¡¢ÔöÒæÅäÖÃ¼Ä´æÆ÷
+            AD7190_RangeSetup(0, conf->chop, AD7190_CONF_GAIN_1);
+            AD7190_ChannelSelect(AD7190_CH_AIN3P_AIN4M);
+            //ËÙÂÊ¡¢ÂË²¨Æ÷¡¢REJ60¡¢ÁãÑÓ³ÙÄ£Ê½¼Ä´æÆ÷
+            AD7190_ContinuousConvStart(conf->fs, conf->sinc3Filter, conf->rej60, conf->noDelay);
+            break;
+        default:
+            ;
+    }
+    
+    return 0;
 }
 
 

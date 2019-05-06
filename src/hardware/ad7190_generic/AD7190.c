@@ -366,7 +366,6 @@ void AD7190_ContinuousConvReadAddTimestamp(unsigned char sampleNumber, unsigned 
 {
 	unsigned char count = 0x0;
 	unsigned long samples = 0x0;
-	uint64_t timestamp;
 	static uint64_t start_timer = 0;
 	int i = 0;
 	if(start_flag) {

@@ -171,14 +171,14 @@ void USB_LP_CAN1_RX0_IRQHandler(void)
 * Output         : None
 * Return         : None
 *******************************************************************************/
-void USART1_IRQHandler(void)
-{
-  if (USART_GetITStatus(USART1, USART_IT_RXNE) != RESET)
-  {
-    /* Send the received data to the PC Host*/
-    USART_To_USB_Send_Data();
-  }
-}
+//void USART1_IRQHandler(void)
+//{
+//  if (USART_GetITStatus(USART1, USART_IT_RXNE) != RESET)
+//  {
+//    /* Send the received data to the PC Host*/
+//    //USART_To_USB_Send_Data();
+//  }
+//}
 
 /******************************************************************************/
 /*                 STM32F10x Peripherals Interrupt Handlers                   */

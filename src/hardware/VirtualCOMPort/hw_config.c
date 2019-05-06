@@ -351,22 +351,6 @@ void Get_SerialNum(void)
   }
 }
 
-#include <stdio.h>
-#include "systick.h"
-
-
-int fputc(int ch, FILE *f)
-{
-	unsigned char cha = (char)ch;
-	uint64_t timer =  clk_count;
-	while (GetEPTxStatus(ENDP1) == EP_TX_VALID && bDeviceState == CONFIGURED && clk_count - timer < 10);
-	UserToPMABufferCopy(&cha, ENDP1_TXADDR, 1);
-	SetEPTxCount(ENDP1, 1);
-	SetEPTxValid(ENDP1);
-	return ch;
-}
-
-
 
 
 /******************* (C) COPYRIGHT 2009 STMicroelectronics *****END OF FILE****/
