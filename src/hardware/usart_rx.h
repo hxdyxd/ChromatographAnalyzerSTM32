@@ -3,7 +3,7 @@
 
 #include "stm32f10x.h"
 
-#define USART_RX_MAX_NUM  (255)
+#define USART_RX_MAX_NUM  (256)
 #define USART_RX_TIMEOUT_MS  (10)
 
 

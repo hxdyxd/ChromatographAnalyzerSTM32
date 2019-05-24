@@ -90,23 +90,26 @@ void api_set_config(void)
 void power_on_reply_proc(void)
 {
     /* 设置增益 */
-    gain_set(gs_api_config.gain);
+    switch( gs_api_config.ch ) {
+    case IF_API_CH1:
+        gain_set(0, gs_api_config.gain);
+        break;
+    case IF_API_CH2:
+        gain_set(1, gs_api_config.gain);
+        break;
+    default:
+        APP_ERROR("gain set filed \r\n");
+        return;
+    }
     gs_power_on = 1;
 }
+
 
 void connection_turn_of_proc(void)
 {
     uint8_t data = 0;
-    switch( gs_api_config.ch ) {
-    case IF_API_CH1:
-        data_interface_hal_write(HAL_GPIO1)(&data, 1);
-        break;
-    case IF_API_CH2:
-        data_interface_hal_write(HAL_GPIO2)(&data, 1);
-        break;
-    default:
-         return;
-    }
+    data_interface_hal_write(HAL_GPIO1)(&data, 1);
+    data_interface_hal_write(HAL_GPIO2)(&data, 1);
     gs_power_on = 0;
 }
 
@@ -146,16 +149,16 @@ void usb_callback(uint8_t *p, int len)
             ret = if_api_data_set_pack( cmd_buf, 0, IF_API_CMD_TYPE_SET, IF_API_SPARE_OK);
         }
 
-        //sprintf( (char *)cmd_buf, "gain: %d\n",  gs_api_config.gain );
         data_interface_hal_write(HAL_USB1)(cmd_buf, ret);
         /* 设置参数 */
         api_set_config();
-        
+        APP_DEBUG("parametra set success, ch = %d, gain = %d\r\n", gs_api_config.ch, gs_api_config.gain);
         break;
     //開始传输
     case IF_API_CMD_TYPE_ADC_START:
         /* ADC turn on */
         gs_start_adc++;
+        APP_DEBUG("adc transfer start\r\n");
         break;
     //结束传输
     case IF_API_CMD_TYPE_ADC_END:
@@ -167,13 +170,17 @@ void usb_callback(uint8_t *p, int len)
         }
         data_interface_hal_write(HAL_USB1)(cmd_buf, ret);
         gs_start_adc = 0;
+        APP_DEBUG("adc transfer end\r\n");
         break;
     //开启电源
     case IF_API_CMD_TYPE_POWER_START:
         /* Relay turn on */
         ret = if_api_data_set_pack( cmd_buf, 0, IF_API_CMD_TYPE_POWER_START, IF_API_SPARE_OK);
         data_interface_hal_write(HAL_USB1)(cmd_buf, ret);
-    
+        
+        //关闭电源
+        connection_turn_of_proc();
+        //开启通道X电源
         data = 1;
         switch( gs_api_config.ch ) {
         case IF_API_CH1:
@@ -190,7 +197,7 @@ void usb_callback(uint8_t *p, int len)
         soft_timer_create(SOFT_TIMER_ACTIVE_DETECT, 1, 0, connection_turn_of_proc, AUTO_TURN_OFF);
         //delay ，wait power on
         soft_timer_create(SOFT_TIMER_POWER_ON_DELAY, 1, 0, power_on_reply_proc, 1000);
-        
+        APP_DEBUG("power on, ch = %d\r\n", gs_api_config.ch);
         break;
     //关闭电源
     case IF_API_CMD_TYPE_POWER_END:
@@ -201,6 +208,7 @@ void usb_callback(uint8_t *p, int len)
         //关闭电源
         connection_turn_of_proc();
         soft_timer_delete(SOFT_TIMER_ACTIVE_DETECT);
+        APP_DEBUG("power off, ch = %d\r\n", gs_api_config.ch);
         break;
     
     default:

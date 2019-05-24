@@ -12,7 +12,7 @@
 * Output         : None.
 * Return         : None.
 *******************************************************************************/
-int gain_set(uint8_t gain);
+int gain_set(uint8_t ch, uint8_t gain);
 
 
 

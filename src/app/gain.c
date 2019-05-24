@@ -42,16 +42,23 @@ const uint8_t gain_table[GAIN_MAX_NUM] = {
 * Output         : None.
 * Return         : None.
 *******************************************************************************/
-int gain_set(uint8_t gain)
+int gain_set(uint8_t ch, uint8_t gain)
 {
     if(gain >= GAIN_MAX_NUM) {
         return -1;
     }
     uint8_t data;
     data = gain_table[gain];
-    data_interface_hal_write(HAL_SPI2_CS1)(&data, 1);
-    data = gain_table[gain];
-    data_interface_hal_write(HAL_SPI2_CS2)(&data, 1);
+    switch(ch) {
+    case 0:
+        data_interface_hal_write(HAL_SPI2_CS1)(&data, 1);
+        break;
+    case 1:
+        data_interface_hal_write(HAL_SPI2_CS2)(&data, 1);
+        break;
+    default:
+        ;
+    }
     return 0;
 }
 

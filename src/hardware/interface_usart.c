@@ -146,7 +146,7 @@ void interface_usart_write_wait(void)
 
 int fputc(int ch, FILE *f)
 {
-    interface_usart_putchar(1, (unsigned char)ch);
+    interface_usart_putchar(0, (unsigned char)ch);
     return ch;
 }
 

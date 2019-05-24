@@ -687,6 +687,11 @@
               <FileType>1</FileType>
               <FilePath>..\src\app\soft_timer.c</FilePath>
             </File>
+            <File>
+              <FileName>kfifo.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\src\app\kfifo.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
