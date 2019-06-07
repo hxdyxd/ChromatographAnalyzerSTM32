@@ -64,7 +64,7 @@ static if_api_v10_23_t gs_api_config = {
     .chop =     IF_API_CHOP_Disable,
     .nodelay =  IF_API_NoDelay_Disable,
     .rej60 =    IF_API_REJ60_0,
-    .gain =     IF_API_Gain_10000000,
+    .gain =     10000000,
     .fs =       1,
 };
 
@@ -127,6 +127,9 @@ void usb_callback(uint8_t *p, int len)
         return;
     }
     
+    //debug
+    put_hex(p, len, 1);
+    
     uint8_t data;
     uint8_t cmd_type = p[1];
     /**************************************************************
@@ -145,6 +148,7 @@ void usb_callback(uint8_t *p, int len)
         ret = if_api_data_CMD_SET_parse(p + 1, len - 4, &gs_api_config);
         if(ret < 0) {
             ret = if_api_data_set_pack( cmd_buf, 0, IF_API_CMD_TYPE_SET, IF_API_SPARE_FAILED);
+            APP_ERROR("data failed \r\n");
         } else {
             ret = if_api_data_set_pack( cmd_buf, 0, IF_API_CMD_TYPE_SET, IF_API_SPARE_OK);
         }

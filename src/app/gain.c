@@ -10,6 +10,9 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include <stdint.h>
+#include <math.h>
+
+#include <app_debug.h>
 
 //HAL
 #include "data_interface_hal.h"
@@ -35,6 +38,12 @@ const uint8_t gain_table[GAIN_MAX_NUM] = {
     249,
 };
 
+#define RES_RAB  50000
+#define RES_RW   50
+#define RES_REF  1.2
+const double gain_kp[4] =  {0.0033,   -0.0161,    0.1149,    0.0099};
+
+
 /*******************************************************************************
 * Function Name  : gain_set.
 * Description    : ÉèÖÃÔöÒæ.
@@ -42,19 +51,24 @@ const uint8_t gain_table[GAIN_MAX_NUM] = {
 * Output         : None.
 * Return         : None.
 *******************************************************************************/
-int gain_set(uint8_t ch, uint8_t gain)
+int gain_set(uint8_t ch, uint32_t gain)
 {
-    if(gain >= GAIN_MAX_NUM) {
+    if(gain > 10000000) {
+        APP_DEBUG("gain failed \r\n");
         return -1;
     }
-    uint8_t data;
-    data = gain_table[gain];
+    
+    double gaind = log10(gain);
+    double control_voltage = gain_kp[0] * (gaind*gaind*gaind) + gain_kp[1] * (gaind*gaind) +  gain_kp[2] * (gaind) +  gain_kp[3];
+    uint8_t res =  (uint8_t)((((control_voltage/RES_REF*RES_RAB) - RES_RW) * 256) / RES_RAB + 0.5);
+    APP_DEBUG("gain = %d, control_voltage = %.3f, res = %d\r\n", gain, control_voltage, res);
+    
     switch(ch) {
     case 0:
-        data_interface_hal_write(HAL_SPI2_CS1)(&data, 1);
+        data_interface_hal_write(HAL_SPI2_CS1)(&res, 1);
         break;
     case 1:
-        data_interface_hal_write(HAL_SPI2_CS2)(&data, 1);
+        data_interface_hal_write(HAL_SPI2_CS2)(&res, 1);
         break;
     default:
         ;

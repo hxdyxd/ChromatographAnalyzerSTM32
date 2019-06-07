@@ -18,13 +18,13 @@ typedef struct {
     uint8_t chop_on;
     uint8_t nodelay_off;
     uint8_t rej60_1;
-    uint8_t gain;
+    uint8_t gain[4];
     uint8_t fs_bit98;
     uint8_t fs_bit7654321;
 }if_api_pack;
 #pragma pack()
 
-
+#define SAMPLE_DECODE(bit24_31, bit16_23, bit8_15, bit0_7)   (((bit24_31) << 21) | ((bit16_23) << 14) | ((bit8_15) << 7) | (bit0_7))
 
 
 int if_api_calculate_checksum(void *buf, unsigned char len)
@@ -100,25 +100,7 @@ int if_api_data_CMD_SET_parse(uint8_t *in_buffer, int in_len, if_api_v10_23_t *o
     out->chop = (api_pack->chop_on == 0x2) ? IF_API_CHOP_Enable : IF_API_CHOP_Disable;
     out->nodelay = (api_pack->nodelay_off == 0x2) ? IF_API_NoDelay_Disable : IF_API_NoDelay;
     out->rej60 = (api_pack->rej60_1 == 0x2) ? IF_API_REJ60_1 : IF_API_REJ60_0;
-    switch(api_pack->gain) {
-        case 0x01:
-            out->gain = IF_API_Gain_1000;
-            break;
-        case 0x02:
-            out->gain = IF_API_Gain_10000;
-            break;
-        case 0x04:
-            out->gain = IF_API_Gain_100000;
-            break;
-        case 0x08:
-            out->gain = IF_API_Gain_1000000;
-            break;
-        case 0x10:
-            out->gain = IF_API_Gain_10000000;
-            break;
-        default:
-            ;
-    }
+    out->gain = SAMPLE_DECODE(api_pack->gain[0], api_pack->gain[1], api_pack->gain[2], api_pack->gain[3]);
     uint16_t fs = (api_pack->fs_bit98<<7) | api_pack->fs_bit7654321;
     if(fs != 0) {
         out->fs = fs;

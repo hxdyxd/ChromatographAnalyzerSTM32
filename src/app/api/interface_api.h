@@ -55,21 +55,13 @@ typedef enum {
 	IF_API_REJ60_1  = 1,
 }IF_API_Set_REJ60_t;
 
-typedef enum {
-	IF_API_Gain_1000       = 0, 
-	IF_API_Gain_10000      = 1,
-	IF_API_Gain_100000     = 2,
-	IF_API_Gain_1000000    = 3,
-	IF_API_Gain_10000000   = 4,
-}IF_API_Set_Gain_t;
-
 typedef struct {
 	IF_API_Set_CHx_t      ch;
 	IF_API_Set_Filter_t   filter;
 	IF_API_Set_CHOP_t     chop;
 	IF_API_Set_NoDelay_t  nodelay;
 	IF_API_Set_REJ60_t    rej60;
-	IF_API_Set_Gain_t     gain;
+	uint32_t              gain;
 	uint16_t              fs;
 }if_api_v10_23_t;
 

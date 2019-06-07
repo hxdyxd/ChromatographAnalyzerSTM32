@@ -143,6 +143,18 @@ void interface_usart_write_wait(void)
     while( clk_count - USART_CFG[1].TxTimer < USART_TX_TIMEOUT_MS);
 }
 
+void put_hex(uint8_t *p, uint8_t len, uint8_t lf)
+{
+    int i;
+    for(i=0;i<len;i++) {
+        printf("%02x", *p );
+        p++;
+    }
+    if(lf) {
+        printf("\r\n");
+    }
+}
+
 
 int fputc(int ch, FILE *f)
 {
@@ -155,6 +167,5 @@ int fgetc(FILE *f)
     while(USART_GetFlagStatus(USART_CFG[0].tUsart.USARTx, USART_FLAG_RXNE) != SET);   //接收数据寄存器不为空标志
     return (int)USART_ReceiveData(USART_CFG[0].tUsart.USARTx);
 }
-
 
 

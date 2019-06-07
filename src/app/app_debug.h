@@ -35,6 +35,7 @@
 					 TIME_COUNT(), __FUNCTION__, __LINE__);\
                     printf(__VA_ARGS__);}
 
+void put_hex(uint8_t *p, uint8_t len, uint8_t lf);
 
 
 #endif
